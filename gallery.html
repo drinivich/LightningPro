@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title>Lightning Pro</title>
+  <link rel="icon" type="image/x-icon" href="images/fundo-claro-com-cor.png" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- stylesheet css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/nivo-lightbox.css" />
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css" />
+  <link rel="stylesheet" href="css/templatemo-style.css" />
+
+  <!-- google web font css -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+  <style>
+/* Flex container for equal height columns on desktop */
+    #contact .row.equal-height {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* Columns are flex children */
+    #contact .row.equal-height > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Make the map container fill full height of its column */
+    #map-container {
+      height: 100%; /* overridden by JS on desktop */
+    }
+
+    /* iframe fills container fully */
+    #map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(50, 0, 0, 0.2);
+      display: block;
+    }
+
+    /* On smaller screens, stack columns vertically and reset heights */
+    @media (max-width: 767px) {
+      #contact .row.equal-height {
+        display: block;
+      }
+
+      #map-container {
+        height: auto !important;
+        margin-top: 30px;
+      }
+    }
+  footer {
+  background-color: #1c1c1c;
+  padding: 20px 0;
+  color: #fff;
+  margin-top: 40px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;   /* centra o grupo todo */
+  align-items: center;       /* alinha verticalmente */
+  gap: 40px;                 /* espaçamento igual entre itens */
+  flex-wrap: wrap;           /* permite quebrar linha no mobile */
+}
+
+.footer-item p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;                  /* espaçamento entre ícone e texto */
+}
+
+footer i {
+  color: #d10000;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.copyright {
+  background: #000;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.copyright img {
+  max-width: 100%;
+  height: auto;
+}
+
+.navbar-brand {
+    float: left;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+vertical-align: middle;
+}
+
+.navbar-brand>img {
+    display: block;
+	padding-top: 6%;
+    max-height: 450%;
+    object-fit: contain;
+}
+
+/* Ajustes responsivos do logo */
+@media (max-width: 1280px) {
+    .navbar-brand {
+    	max-height: 50%;
+    }
+    
+    .navbar-brand>img {
+
+	padding-top: 9%;
+        height: 600%;
+    }
+}
+
+/* Ajustes responsivos do logo */
+@media (max-width: 1137px) {
+    .navbar-brand {
+    	max-height: 50%;
+    }
+    
+    .navbar-brand>img {
+        height: 600%;
+	padding-top: 8%;
+    }
+}
+
+/* Ajustes responsivos do logo */
+@media (max-width: 1024px) {
+    .navbar-brand {
+    	max-height: 50%;
+    }
+    
+    .navbar-brand>img {
+        height: 500%;
+	padding-top: 9%;
+    }
+}
+/* Ajustes responsivos do logo */
+@media (max-width: 360px) {
+    
+    .navbar-brand>img {
+        height: 00%;
+    }
+}
+
+/* Ajustes responsivos do logo */
+@media (max-width: 768px) {
+    .navbar-brand {
+    	max-height: 100%;
+    }
+    
+    .navbar-brand>img {
+        height: 350%;
+        padding-bottom: 8%;
+		padding-top: 1%;
+    }
+}
+
+/* Ajustes responsivos do logo */
+@media (max-width: 540px) {
+    .navbar-brand {
+    	max-height: 100%;
+    }
+    
+    .navbar-brand>img {
+        height: 300%;
+        padding-bottom: 8%;
+		padding-top: 1%;
+    }
+}
+
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); /* fundo escuro */
+    display: none; /* escondido por defeito */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .popup {
+    position: relative;
+    background: rgba(0,0,0,0.7);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 900px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .popup iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+  }
+
+  .popup .fechar {
+    background: #990000;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); /* fundo escuro */
+    display: none; /* escondido por defeito */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .popup {
+    position: relative;
+    background: rgba(0,0,0,0.7);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 900px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .popup iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+  }
+
+  .popup .fechar {
+    background: #990000;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+</style>
+
+<script>
+  function abrirPopup() {
+    document.getElementById("overlay").style.display = "flex";
+  }
+  function fecharPopup() {
+    document.getElementById("overlay").style.display = "none";
+  }
+</script>
+	
+<head>
+  <title>Lightning Pro</title>
+  <link rel="icon" type="image/x-icon" href="images/fundo-claro-com-cor.png" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- stylesheet css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/nivo-lightbox.css" />
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css" />
+  <link rel="stylesheet" href="css/templatemo-style.css" />
+
+  <!-- google web font css -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+ 
+	<style>
+			.gallery {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 10px;
+			}
+
+			.gallery a {
+				display: block;
+				position: relative;
+				overflow: hidden;
+				border-radius: 8px;
+			}
+
+			.gallery img {
+				width: 100%;
+				height: 200px;
+				display: block;
+				object-fit: cover; 
+				transition: transform 0.3s ease;
+			}
+
+			.gallery a:hover img {
+				transform: scale(1.05);
+			}
+
+			/* Simple lightbox */
+			.lightbox {
+				display: none;
+				position: fixed;
+				z-index: 9999;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.9);
+				align-items: center;
+				justify-content: center;
+			}
+
+			.lightbox img {
+				max-width: 90%;
+				max-height: 80%;
+			}
+
+			.lightbox:target {
+				display: flex;
+			}
+
+		a {
+			text-decoration: none;
+		}
+	   #contact .row.equal-height {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* Columns are flex children */
+    #contact .row.equal-height > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Make the map container fill full height of its column */
+    #map-container {
+      height: 100%; /* overridden by JS on desktop */
+    }
+
+    /* iframe fills container fully */
+    #map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(50, 0, 0, 0.2);
+      display: block;
+    }
+
+    /* On smaller screens, stack columns vertically and reset heights */
+    @media (max-width: 767px) {
+      #contact .row.equal-height {
+        display: block;
+      }
+
+      #map-container {
+        height: auto !important;
+        margin-top: 30px;
+      }
+    }
+  footer {
+  background-color: #1c1c1c;
+  padding: 20px 0;
+  color: #fff;
+  margin-top: 40px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;   /* centra o grupo todo */
+  align-items: center;       /* alinha verticalmente */
+  gap: 40px;                 /* espaçamento igual entre itens */
+  flex-wrap: wrap;           /* permite quebrar linha no mobile */
+}
+
+.footer-item p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;                  /* espaçamento entre ícone e texto */
+}
+
+footer i {
+  color: #d10000;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.copyright {
+  background: #000;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.copyright img {
+  max-width: 100%;
+  height: auto;
+}
+
+  </style>
+</head>
+<body>
+	<!-- navigation -->
+	<div class="container">
+		<div class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon icon-bar"></span>
+					<span class="icon icon-bar"></span>
+					<span class="icon icon-bar"></span>
+				</button>
+				<a href="index.html" class="navbar-brand"><img src="images/fundo-escuro-com-cor.png" class="img-logo"
+						alt="logo"></a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.html">HOME</a></li>
+					<li><a href="about.html">ABOUT US</a></li>
+					<li><a href="gallery.html">GALLERY</a></li>
+					<li><a href="portfolio.html">SPONSORS</a></li>
+					<li><a href="contact.html">CONTACT</a></li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- about header section -->
+	<div id="about-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-sm-12"></div>
+			</div>
+		</div>
+	</div>
+
+  <div id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-sm-12">
+          <h1 style="text-align: center; color: #990000;">Lightning gallery</h1>
+          <p style="text-align: center;">A bit of everything we have done</p>
+        </div>
+      </div>
+
+<div style="margin-top: 0%;">
+  <div id="about">
+			<div class="container">
+			</div>
+		</div>
+  <div class="gallery">
+    <a href="#img1"><img src="images/1.jpg" alt="Screenshot 1"></a>
+    <a href="#img2"><img src="images/2.jpg" alt="Screenshot 2"></a>
+    <a href="#img3"><img src="images/3.jpg" alt="Screenshot 3"></a>
+    <a href="#img4"><img src="images/4.jpg" alt="Screenshot 4"></a>
+    <a href="#img5"><img src="images/5.jpg" alt="Screenshot 5"></a>
+    <a href="#img6"><img src="images/6.jpg" alt="Screenshot 6"></a>
+    <a href="#img7"><img src="images/7.jpg" alt="Screenshot 7"></a>
+    <a href="#img8"><img src="images/8.jpg" alt="Screenshot 8"></a>
+    <a href="#img9"><img src="images/9.jpg" alt="Screenshot 9"></a>
+    <a href="#img10"><img src="images/10.jpg" alt="Screenshot 10"></a>
+    <a href="#img11"><img src="images/11.jpg" alt="Screenshot 11"></a>
+    <a href="#img12"><img src="images/12.jpg" alt="Screenshot 12"></a>
+    <a href="#img13"><img src="images/13.jpg" alt="Screenshot 13"></a>
+    <a href="#img14"><img src="images/14.jpg" alt="Screenshot 14"></a>
+    <a href="#img15"><img src="images/15.jpg" alt="Screenshot 15"></a>
+    <a href="#img16"><img src="images/16.jpg" alt="Screenshot 16"></a>
+    <a href="#img17"><img src="images/17.jpg" alt="Screenshot 17"></a>
+    <a href="#img18"><img src="images/18.jpg" alt="Screenshot 18"></a>
+    <a href="#img19"><img src="images/19.jpg" alt="Screenshot 19"></a>
+    <a href="#img20"><img src="images/20.jpg" alt="Screenshot 20"></a>
+    <a href="#img21"><img src="images/21.jpg" alt="Screenshot 21"></a>
+    <a href="#img22"><img src="images/22.jpg" alt="Screenshot 22"></a>
+    <a href="#img23"><img src="images/23.jpg" alt="Screenshot 23"></a>
+    <a href="#img24"><img src="images/24.jpg" alt="Screenshot 24"></a>
+    <a href="#img25"><img src="images/25.jpg" alt="Screenshot 25"></a>
+    <a href="#img26"><img src="images/26.jpg" alt="Screenshot 26"></a>
+    <a href="#img27"><img src="images/27.jpg" alt="Screenshot 27"></a>
+    <a href="#img28"><img src="images/28.jpg" alt="Screenshot 28"></a>
+    <a href="#img29"><img src="images/29.jpg" alt="Screenshot 29"></a>
+    <a href="#img30"><img src="images/30.jpg" alt="Screenshot 30"></a>
+    <a href="#img31"><img src="images/31.jpg" alt="Screenshot 31"></a>
+    <a href="#img32"><img src="images/32.jpg" alt="Screenshot 32"></a>
+    <a href="#img33"><img src="images/33.jpg" alt="Screenshot 33"></a>
+    <a href="#img34"><img src="images/34.jpg" alt="Screenshot 34"></a>
+    <a href="#img35"><img src="images/35.jpg" alt="Screenshot 35"></a>
+    <a href="#img36"><img src="images/36.jpg" alt="Screenshot 36"></a>
+    <a href="#img37"><img src="images/37.jpg" alt="Screenshot 37"></a>
+    <a href="#img38"><img src="images/38.jpg" alt="Screenshot 38"></a>
+    <a href="#img39"><img src="images/39.jpg" alt="Screenshot 39"></a>
+    <a href="#img40"><img src="images/40.jpg" alt="Screenshot 40"></a>
+    <a href="#img41"><img src="images/41.jpg" alt="Screenshot 41"></a>
+    <a href="#img42"><img src="images/42.jpg" alt="Screenshot 42"></a>
+    <a href="#img43"><img src="images/43.jpg" alt="Screenshot 43"></a>
+    <a href="#img44"><img src="images/44.jpg" alt="Screenshot 44"></a>
+    <a href="#img45"><img src="images/45.jpg" alt="Screenshot 45"></a>
+    <a href="#img46"><img src="images/46.jpg" alt="Screenshot 46"></a>
+    <a href="#img47"><img src="images/47.jpg" alt="Screenshot 47"></a>
+    <a href="#img48"><img src="images/48.jpg" alt="Screenshot 48"></a>
+    <a href="#img49"><img src="images/49.jpg" alt="Screenshot 49"></a>
+    <a href="#img50"><img src="images/50.jpg" alt="Screenshot 50"></a>
+    <a href="#img51"><img src="images/51.jpg" alt="Screenshot 51"></a>
+    <a href="#img52"><img src="images/52.jpg" alt="Screenshot 52"></a>
+    <a href="#img53"><img src="images/53.jpg" alt="Screenshot 53"></a>
+    <a href="#img54"><img src="images/54.jpg" alt="Screenshot 54"></a>
+    <a href="#img55"><img src="images/55.jpg" alt="Screenshot 55"></a>
+    <a href="#img56"><img src="images/56.jpg" alt="Screenshot 56"></a>
+    <a href="#img57"><img src="images/57.jpg" alt="Screenshot 57"></a>
+    <a href="#img58"><img src="images/58.jpg" alt="Screenshot 58"></a>
+    <a href="#img59"><img src="images/59.jpg" alt="Screenshot 59"></a>
+    <a href="#img60"><img src="images/60.jpg" alt="Screenshot 60"></a>
+    <a href="#img61"><img src="images/61.jpg" alt="Screenshot 61"></a>
+    <a href="#img62"><img src="images/62.jpg" alt="Screenshot 62"></a>
+    <a href="#img63"><img src="images/63.jpg" alt="Screenshot 63"></a>
+    <a href="#img64"><img src="images/64.jpg" alt="Screenshot 64"></a>
+    <a href="#img65"><img src="images/65.jpg" alt="Screenshot 65"></a>
+    <a href="#img66"><img src="images/66.jpg" alt="Screenshot 66"></a>
+    <a href="#img67"><img src="images/67.jpg" alt="Screenshot 67"></a>
+    <a href="#img68"><img src="images/68.jpg" alt="Screenshot 68"></a>
+    <a href="#img69"><img src="images/69.jpg" alt="Screenshot 69"></a>
+    <a href="#img70"><img src="images/70.jpg" alt="Screenshot 70"></a>
+    <a href="#img71"><img src="images/71.jpg" alt="Screenshot 71"></a>
+    <a href="#img72"><img src="images/72.jpg" alt="Screenshot 72"></a>
+    <a href="#img73"><img src="images/73.jpg" alt="Screenshot 73"></a>
+    <a href="#img74"><img src="images/74.jpg" alt="Screenshot 74"></a>
+    <a href="#img75"><img src="images/75.jpg" alt="Screenshot 75"></a>
+    <a href="#img76"><img src="images/76.jpg" alt="Screenshot 76"></a>
+    <a href="#img77"><img src="images/77.jpg" alt="Screenshot 77"></a>
+    <a href="#img78"><img src="images/78.jpg" alt="Screenshot 78"></a>
+    <a href="#img79"><img src="images/79.jpg" alt="Screenshot 79"></a>
+    <a href="#img80"><img src="images/80.jpg" alt="Screenshot 80"></a>
+    <a href="#img81"><img src="images/81.jpg" alt="Screenshot 81"></a>
+    <a href="#img82"><img src="images/82.jpg" alt="Screenshot 82"></a>
+    <a href="#img83"><img src="images/83.jpg" alt="Screenshot 83"></a>
+    <a href="#img84"><img src="images/84.jpg" alt="Screenshot 84"></a>
+    <a href="#img85"><img src="images/85.jpg" alt="Screenshot 85"></a>
+    <a href="#img86"><img src="images/86.jpg" alt="Screenshot 86"></a>
+    <a href="#img87"><img src="images/87.jpg" alt="Screenshot 87"></a>
+    <a href="#img88"><img src="images/88.jpg" alt="Screenshot 88"></a>
+    <a href="#img89"><img src="images/89.jpg" alt="Screenshot 89"></a>
+    <a href="#img90"><img src="images/90.jpg" alt="Screenshot 90"></a>
+    <a href="#img81"><img src="images/91.jpg" alt="Screenshot 81"></a>
+    <a href="#img82"><img src="images/92.jpg" alt="Screenshot 82"></a>
+    <a href="#img83"><img src="images/93.jpg" alt="Screenshot 83"></a>
+    <a href="#img84"><img src="images/94.jpg" alt="Screenshot 84"></a>
+    <a href="#img85"><img src="images/95.jpg" alt="Screenshot 85"></a>
+    <a href="#img86"><img src="images/96.jpg" alt="Screenshot 86"></a>
+    <a href="#img87"><img src="images/97.jpg" alt="Screenshot 87"></a>
+    <a href="#img88"><img src="images/98.jpg" alt="Screenshot 88"></a>
+    <a href="#img89"><img src="images/99.jpg" alt="Screenshot 89"></a>
+    <a href="#img89"><img src="images/equiparegional.png" alt="Screenshot 89"></a>
+    
+  </div>
+</div>
+
+
+<!-- footer section -->
+<footer>
+  <div class="footer-container">
+    <div class="footer-item">
+      <p><i class="fa fa-phone"></i> +351 932 740 756</p>
+    </div>
+    <div class="footer-item">
+      <p><i class="fa fa-envelope-o"></i> lightningproteam@gmail.com</p>
+    </div>
+    <div class="footer-item">
+      <p><i class="fa fa-instagram"></i> @lightning_pro_12</p>
+    </div>
+  </div>
+</footer>
+
+
+  <!-- copyright section -->
+  <div class="copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-5" style="align-content: center;">
+          <p style="text-align: center;">Lightning Pro - Adriana Gabriel - Bootstrap</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
+<!-- 
+<a class="prev" onclick="plusSlides(-1)">❮</a>
+<a class="next" onclick="plusSlides(1)">❯</a>
+</div>
+<div class="dots"><span class="dot" onclick="currentSlide(1)"></span><span class="dot" onclick="currentSlide(10)"></span><span class="dot" onclick="currentSlide(19)"></span><span class="dot" onclick="currentSlide(28)"></span><span class="dot" onclick="currentSlide(37)"></span><span class="dot" onclick="currentSlide(46)"></span><span class="dot" onclick="currentSlide(55)"></span><span class="dot" onclick="currentSlide(64)"></span><span class="dot" onclick="currentSlide(73)"></span><span class="dot" onclick="currentSlide(82)"></span><span class="dot" onclick="currentSlide(91)"></span></div>
+<script>
+  let slideIndex = 0;
+  let slideTimer;
+
+  function showSlides(n) {
+    const slides = document.getElementsByClassName("gallery");
+    const dots = document.getElementsByClassName("dot");
+
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+
+  function plusSlides(n) {
+    slideIndex += n;
+    resetTimer();
+    showSlides(slideIndex);
+  }
+
+  function currentSlide(n) {
+    slideIndex = n;
+    resetTimer();
+    showSlides(slideIndex);
+  }
+
+  function autoSlides() {
+    slideIndex++;
+    showSlides(slideIndex);
+    slideTimer = setTimeout(autoSlides, 3000);
+  }
+
+  function resetTimer() {
+    clearTimeout(slideTimer);
+    slideTimer = setTimeout(autoSlides, 3000);
+  }
+
+  slideIndex = 1;
+  showSlides(slideIndex);
+  slideTimer = setTimeout(autoSlides, 3000);
+</script> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery Slideshow</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: Arial; margin: 0; }
+    .gallery { display: none; width: 100%; height: 400px; object-fit: cover; }
+    .slideshow-container {
+      position: relative;
+      max-width: 800px;
+      margin: auto;
+    }
+    .prev, .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      margin-top: -22px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      transition: 0.3s;
+      border-radius: 0 3px 3px 0;
+      user-select: none;
+    }
+    .next {
+      right: 0;
+      border-radius: 3px 0 0 3px;
+    }
+    .prev:hover, .next:hover {
+      background-color: rgba(100,0,0,0.8);
+    }
+    .dots {
+      text-align: center;
+      padding: 10px;
+    }
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 2px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    .active, .dot:hover {
+      background-color: #717171;
+    }
+  </style>
+</head>
+<body>
+
+<div class="slideshow-container">
+  <img class="gallery" src="images/carro.jpg" alt="1">
+  <img class="gallery" src="images/carro2.jpg" alt="2">
+  <img class="gallery" src="images/carro3.jpg" alt="3">
+
+  <a class="prev" onclick="plusSlides(-1)">❮</a>
+  <a class="next" onclick="plusSlides(1)">❯</a>
+</div>
+
+<div class="dots">
+  <span class="dot" onclick="currentSlide(1)"></span>
+  <span class="dot" onclick="currentSlide(2)"></span>
+  <span class="dot" onclick="currentSlide(3)"></span>
+</div>
+
+<script>
+  let slideIndex = 0;
+  let slideTimer;
+
+  function showSlides(n) {
+    const slides = document.getElementsByClassName("gallery");
+    const dots = document.getElementsByClassName("dot");
+
+    if (n > slides.length) slideIndex = 1;
+    if (n < 1) slideIndex = slides.length;
+
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (let i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+
+  function plusSlides(n) {
+    slideIndex += n;
+    resetTimer();
+    showSlides(slideIndex);
+  }
+
+  function currentSlide(n) {
+    slideIndex = n;
+    resetTimer();
+    showSlides(slideIndex);
+  }
+
+  function autoSlides() {
+    slideIndex++;
+    showSlides(slideIndex);
+    slideTimer = setTimeout(autoSlides, 3000);
+  }
+
+  function resetTimer() {
+    clearTimeout(slideTimer);
+    slideTimer = setTimeout(autoSlides, 3000);
+  }
+
+  // Initialize
+  slideIndex = 1;
+  showSlides(slideIndex);
+  slideTimer = setTimeout(autoSlides, 3000);
+</script>
+
+</body>
+</html> -->
