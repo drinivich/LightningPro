@@ -1,6 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
 
+<!-- javascript js -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/nivo-lightbox.min.js"></script>
+	<script src="js/custom.js"></script>
+
+<html lang="en">
 <head>
   <title>Lightning Pro</title>
   <link rel="icon" type="image/x-icon" href="images/fundo-claro-com-cor.png" />
@@ -15,30 +21,24 @@
   <link rel="stylesheet" href="css/nivo_themes/default/default.css" />
   <link rel="stylesheet" href="css/templatemo-style.css" />
 
-
   <!-- google web font css -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Flex container for equal height columns on desktop */
+/* Flex container for equal height columns on desktop */
     #contact .row.equal-height {
       display: flex;
       flex-wrap: wrap;
     }
 
     /* Columns are flex children */
-    #contact .row.equal-height>div {
+    #contact .row.equal-height > div {
       display: flex;
       flex-direction: column;
     }
 
     /* Make the map container fill full height of its column */
     #map-container {
-      height: 100%;
-      /* overridden by JS on desktop */
+      height: 100%; /* overridden by JS on desktop */
     }
 
     /* iframe fills container fully */
@@ -62,67 +62,54 @@
         margin-top: 30px;
       }
     }
+  footer {
+  background-color: #1c1c1c;
+  padding: 20px 0;
+  color: #fff;
+  margin-top: 40px;
+}
 
-    body {
-      margin: 0;
-      background-color: #111;
-      font-family: "Montserrat", sans-serif;
-      color: #fff;
-    }
+.footer-container {
+  display: flex;
+  justify-content: center;   /* centra o grupo todo */
+  align-items: center;       /* alinha verticalmente */
+  gap: 40px;                 /* espaçamento igual entre itens */
+  flex-wrap: wrap;           /* permite quebrar linha no mobile */
+}
 
-    footer {
-      background-color: #1c1c1c;
-      padding: 20px 0;
-      color: #fff;
-      margin-top: 40px;
-    }
+.footer-item p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;                  /* espaçamento entre ícone e texto */
+}
 
-    .footer-container {
-      display: flex;
-      justify-content: center;
-      /* centra o grupo todo */
-      align-items: center;
-      /* alinha verticalmente */
-      gap: 40px;
-      /* espaçamento igual entre itens */
-      flex-wrap: wrap;
-      /* permite quebrar linha no mobile */
-    }
+footer i {
+  color: #d10000;
+  font-size: 16px;
+}
 
-    .footer-item p {
-      margin: 0;
-      font-size: 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      /* espaçamento entre ícone e texto */
-    }
+@media (max-width: 767px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 
-    footer i {
-      color: #d10000;
-      font-size: 16px;
-    }
+.copyright {
+  background: #000;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
 
-    @media (max-width: 767px) {
-      .footer-container {
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
+.copyright img {
+  max-width: 100%;
+  height: auto;
+}
 
-    .copyright {
-      background: #000;
-      padding: 20px 0;
-      text-align: center;
-      font-size: 12px;
-      color: #aaa;
-    }
-
-    .copyright img {
-      max-width: 100%;
-      height: auto;
-    }
-  
 .navbar-brand {
     float: left;
     padding: 10px 15px;
@@ -246,35 +233,235 @@ vertical-align: middle;
     font-weight: bold;
   }
 
+  .overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); /* fundo escuro */
+    display: none; /* escondido por defeito */
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .popup {
+    position: relative;
+    background: rgba(0,0,0,0.7);
+    border-radius: 12px;
+    overflow: hidden;
+    width: 90%;
+    max-width: 900px;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .popup iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+  }
+
+  .popup .fechar {
+    background: #990000;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-weight: bold;
+  }
 </style>
 
-</head>
+<script>
+  function abrirPopup() {
+    document.getElementById("overlay").style.display = "flex";
+  }
+  function fecharPopup() {
+    document.getElementById("overlay").style.display = "none";
+  }
+</script>
+	
+<head>
+  <title>Lightning Pro</title>
+  <link rel="icon" type="image/x-icon" href="images/fundo-claro-com-cor.png" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+  <!-- stylesheet css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/nivo-lightbox.css" />
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css" />
+  <link rel="stylesheet" href="css/templatemo-style.css" />
+
+  <!-- google web font css -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+ 
+	<style>
+			.gallery {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 10px;
+			}
+
+			.gallery a {
+				display: block;
+				position: relative;
+				overflow: hidden;
+				border-radius: 8px;
+			}
+
+			.gallery img {
+				width: 100%;
+				height: 200px;
+				display: block;
+				object-fit: cover; 
+				transition: transform 0.3s ease;
+			}
+
+			.gallery a:hover img {
+				transform: scale(1.05);
+			}
+
+			/* Simple lightbox */
+			.lightbox {
+				display: none;
+				position: fixed;
+				z-index: 9999;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0, 0, 0, 0.9);
+				align-items: center;
+				justify-content: center;
+			}
+
+			.lightbox img {
+				max-width: 90%;
+				max-height: 80%;
+			}
+
+			.lightbox:target {
+				display: flex;
+			}
+
+		a {
+			text-decoration: none;
+		}
+	   #contact .row.equal-height {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* Columns are flex children */
+    #contact .row.equal-height > div {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Make the map container fill full height of its column */
+    #map-container {
+      height: 100%; /* overridden by JS on desktop */
+    }
+
+    /* iframe fills container fully */
+    #map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 16px;
+      box-shadow: 0 4px 16px rgba(50, 0, 0, 0.2);
+      display: block;
+    }
+
+    /* On smaller screens, stack columns vertically and reset heights */
+    @media (max-width: 767px) {
+      #contact .row.equal-height {
+        display: block;
+      }
+
+      #map-container {
+        height: auto !important;
+        margin-top: 30px;
+      }
+    }
+  footer {
+  background-color: #1c1c1c;
+  padding: 20px 0;
+  color: #fff;
+  margin-top: 40px;
+}
+
+.footer-container {
+  display: flex;
+  justify-content: center;   /* centra o grupo todo */
+  align-items: center;       /* alinha verticalmente */
+  gap: 40px;                 /* espaçamento igual entre itens */
+  flex-wrap: wrap;           /* permite quebrar linha no mobile */
+}
+
+.footer-item p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;                  /* espaçamento entre ícone e texto */
+}
+
+footer i {
+  color: #d10000;
+  font-size: 16px;
+}
+
+@media (max-width: 767px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.copyright {
+  background: #000;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+}
+
+.copyright img {
+  max-width: 100%;
+  height: auto;
+}
+
+  </style>
+</head>
 <body>
-  <!-- navigation -->
-  <div class="container">
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-      <div class="navbar-header">
-        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-        </button>
-        <a href="index.html" class="navbar-brand"><img src="images/fundo-escuro-com-cor.png" class="img-logo"
-            alt="logo"></a>
-      </div>
-      <div class="collapse navbar-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="index.html">HOME</a></li>
-          <li><a href="about.html">ABOUT US</a></li>
-          <li><a href="gallery.html">GALLERY</a></li>
-          <li><a href="portfolio.html">SPONSORS</a></li>
-          <li><a href="contact.html">CONTACT</a></li>
-          <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+	<!-- navigation -->
+	<div class="container">
+		<div class="navbar navbar-default navbar-static-top" role="navigation">
+			<div class="navbar-header">
+				<button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon icon-bar"></span>
+					<span class="icon icon-bar"></span>
+					<span class="icon icon-bar"></span>
+				</button>
+				<a href="index.html" class="navbar-brand"><img src="images/fundo-escuro-com-cor.png" class="img-logo"
+						alt="logo"></a>
+			</div>
+			<div class="collapse navbar-collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index.html">HOME</a></li>
+					<li><a href="about.html">ABOUT US</a></li>
+					<li><a href="gallery.html">GALLERY</a></li>
+					<li><a href="portfolio.html">SPONSORS</a></li>
+					<li><a href="contact.html">CONTACT</a></li>
+					<li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
   <!-- contact header section -->
   <div id="contact-header">
@@ -452,9 +639,4 @@ vertical-align: middle;
     });
 </script>
 </body>
-
-
 </html>
-
-
-
