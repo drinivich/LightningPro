@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<!-- javascript js -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/nivo-lightbox.min.js"></script>
+	<script src="js/custom.js"></script>
+
+<html lang="en">
+<head>
+  <title>Lightning Pro</title>
+  <link rel="icon" type="image/x-icon" href="images/fundo-claro-com-cor.png" />
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/nivo-lightbox.css" />
+  <link rel="stylesheet" href="css/nivo_themes/default/default.css" />
+  <link rel="stylesheet" href="css/templatemo-style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
+
+  <style>
+    * { cursor: none !important; }
+
+    #cursor {
+      position: fixed; top: 0; left: 0;
+      width: 48px; height: 48px;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-20%, -10%);
+      filter: drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 12px #ff6600);
+      will-change: transform;
+    }
+    #cursor img { width: 50%; height: 50%; object-fit: contain; image-rendering: pixelated; }
+    #cursor.clicking { transform: translate(-20%, -10%) scale(1.05); }
+
+    .spark {
+      position: fixed; pointer-events: none; z-index: 9999;
+      animation: sparkFade 0.6s ease-out forwards;
+    }
+    @keyframes sparkFade {
+      0%   { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+    }
+
+    #contact .row.equal-height { display: flex; flex-wrap: wrap; }
+    #contact .row.equal-height > div { display: flex; flex-direction: column; }
+    #map-container { height: 100%; }
+    #map-container iframe { width:100%; height:100%; border:0; border-radius:16px; box-shadow:0 4px 16px rgba(50,0,0,.2); display:block; }
+    @media (max-width: 767px) {
+      #contact .row.equal-height { display: block; }
+      #map-container { height: auto !important; margin-top: 30px; }
+    }
+
+    footer { background-color: #1c1c1c; padding: 20px 0; color: #fff; margin-top: 40px; }
+    .footer-container { display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap; }
+    .footer-item p { margin:0; font-size:14px; display:flex; align-items:center; gap:8px; }
+    footer i { color: #d10000; font-size: 16px; }
+    @media (max-width: 767px) { .footer-container { flex-direction:column; gap:10px; } }
+
+    .copyright { background:#000; padding:20px 0; text-align:center; font-size:12px; color:#aaa; }
+    .copyright img { max-width:100%; height:auto; }
+
+    .navbar-brand { float:left; padding:10px 15px; display:flex; align-items:center; vertical-align:middle; }
+    .navbar-brand>img { display:block; padding-top:6%; max-height:450%; object-fit:contain; }
+    @media (max-width:1280px) { .navbar-brand { max-height:50%; } .navbar-brand>img { padding-top:9%; height:600%; } }
+    @media (max-width:1137px) { .navbar-brand { max-height:50%; } .navbar-brand>img { height:600%; padding-top:8%; } }
+    @media (max-width:1024px) { .navbar-brand { max-height:50%; } .navbar-brand>img { height:500%; padding-top:9%; } }
+    @media (max-width:360px)  { .navbar-brand>img { height:0%; } }
+    @media (max-width:768px)  { .navbar-brand { max-height:100%; } .navbar-brand>img { height:350%; padding-bottom:8%; padding-top:1%; } }
+    @media (max-width:540px)  { .navbar-brand { max-height:100%; } .navbar-brand>img { height:300%; padding-bottom:8%; padding-top:1%; } }
+
+    .overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.7); display:none; justify-content:center; align-items:center; z-index:9999; }
+    .popup { position:relative; background:rgba(0,0,0,.7); border-radius:12px; overflow:hidden; width:90%; max-width:900px; height:70%; display:flex; flex-direction:column; }
+    .popup iframe { flex:1; width:100%; border:none; }
+    .popup .fechar { background:#990000; color:#fff; border:none; padding:10px; cursor:pointer; font-weight:bold; }
+
+    /* ===== ATIVIDADES ===== */
+    #atividades { padding: 60px 0 70px; }
+
+    #atividades .section-title {
+      font-weight: 700; font-size: 36px;
+      color: #990000; text-transform: uppercase;
+      letter-spacing: 2px; margin-bottom: 8px;
+      position: relative; display: inline-block;
+    }
+    #atividades .section-title::after {
+      content: ''; display: block;
+      width: 100%; height: 3px;
+      background: #ffffff; margin-top: 8px; border-radius: 2px;
+    }
+
+    .atividade-card { text-align:center; padding:20px 15px 10px; transition:transform .25s ease; }
+    .atividade-card:hover { transform: translateY(-6px); }
+
+    .atividade-icon { width:80px; height:80px; margin:0 auto 18px; display:flex; align-items:center; justify-content:center; }
+    .atividade-icon img { width:70px; height:70px; object-fit:contain; }
+    .atividade-icon i { font-size:52px; color:#990000; }
+
+    .atividade-card h4 {
+      font-family: 'Montserrat', sans-serif; font-weight:700; font-size:14px;
+      color:#990000; text-transform:uppercase; letter-spacing:1px;
+      margin-bottom:10px; min-height:40px;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .atividade-card p { font-size:14px; color:#555; margin-bottom:24px; min-height:40px; }
+
+    .btn-atividade {
+      display:inline-block; background:#990000; color:#fff !important;
+      font-family:'Montserrat',sans-serif; font-weight:700; font-size:14px;
+      padding:12px 30px; border-radius:4px; text-decoration:none !important;
+      transition:background .2s ease, transform .2s ease; border:none; cursor:pointer;
+    }
+    .btn-atividade:hover { background:#990000; transform:scale(1.04); color:#fff !important; }
+
+    /* Modal */
+    .modal-atividade-overlay {
+      display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,.75); z-index:10000;
+      justify-content:center; align-items:center;
+    }
+    .modal-atividade-overlay.active { display:flex; }
+    .modal-atividade-box {
+      background:#fff; border-radius:12px; max-width:560px; width:90%;
+      padding:40px 36px 32px; position:relative;
+      box-shadow:0 12px 40px rgba(0,0,0,.3);
+      animation:modalIn .3s ease;
+    }
+    @keyframes modalIn { from{opacity:0;transform:scale(.92) translateY(20px)} to{opacity:1;transform:scale(1) translateY(0)} }
+    .modal-atividade-box .modal-icon { font-size:48px; color:#990000; margin-bottom:16px; }
+    .modal-atividade-box h3 { font-family:'Montserrat',sans-serif; font-weight:700; color:#990000; text-transform:uppercase; font-size:18px; margin-bottom:8px; }
+    .modal-atividade-box .modal-tag { display:inline-block; background:#0000003a; color:#990000; font-size:12px; font-weight:700; padding:3px 12px; border-radius:20px; margin-bottom:16px; text-transform:uppercase; letter-spacing:1px; }
+    .modal-atividade-box p { color:#444; font-size:14px; line-height:1.7; margin-bottom:0; }
+    .modal-close-btn { position:absolute; top:14px; right:18px; background:none; border:none; font-size:22px; color:#999; cursor:pointer; line-height:1; transition:color .2s; }
+    .modal-close-btn:hover { color:#333; }
+
+    @media (max-width:767px) { .atividade-card { margin-bottom:40px; } #atividades .section-title { font-size:26px; } }
+    /* ===== END ATIVIDADES ===== */
+
+    .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:10px; }
+    .gallery a { display:block; position:relative; overflow:hidden; border-radius:8px; }
+    .gallery img { width:100%; height:200px; display:block; object-fit:cover; transition:transform .3s ease; }
+    .gallery a:hover img { transform:scale(1.05); }
+    .lightbox { display:none; position:fixed; z-index:9999; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.9); align-items:center; justify-content:center; }
+    .lightbox img { max-width:90%; max-height:80%; }
+    .lightbox:target { display:flex; }
+    a { text-decoration: none; }
+  </style>
+</head>
+
+<body>
+  <div id="cursor"><img src="images/CursorRaio.png" alt="" /></div>
+
+  <!-- navigation -->
+  <div class="container">
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+      <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+          <span class="icon icon-bar"></span>
+        </button>
+        <a href="index.html" class="navbar-brand"><img src="images/fundo-escuro-com-cor.png" class="img-logo" alt="logo"></a>
+      </div>
+      <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="about.html">ABOUT US</a></li>
+          <li><a href="gallery.html">GALLERY</a></li>
+          <li><a href="portfolio.html">SPONSORS</a></li>
+          <li><a href="contact.html">CONTACT</a></li>
+          <li>&nbsp;&nbsp;&nbsp;&nbsp;</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- home section -->
+  <div id="home">
+    <div class="container">
+      <div class="row"><div class="col-md-5 col-sm-3"></div></div>
+    </div>
+  </div>
+
+  <!-- divider section -->
+  <div class="divider">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 col-sm-6">
+          <div class="divider-wrapper divider-one">
+            <i class="fa fa-laptop"></i>
+            <h3>Our identity</h3>
+            <p>Our colour identity is almost a fun fact, its only black, red and white because our first team leader is a Ferrari fan!</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-6">
+          <div class="divider-wrapper divider-two">
+            <i class="fa fa-mobile"></i>
+            <h3>Our car</h3>
+            <p>Our car was designed in a few sheets of paper, our inspiration was an arrow, we gave it life by making it on Fusion 360</p>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12">
+          <div class="divider-wrapper divider-three">
+            <i class="fa fa-life-ring"></i>
+            <h3>Our why</h3>
+            <p>We are just a group of friends who likes F1, we heard about the challenge and thought it could be funny, so why not?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- about section -->
+  <div id="about">
+    <div style="margin-bottom:50px" class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <img src="images/stemRacing.jpg" class="img-responsive" alt="about img">
+        </div>
+        <div class="col-md-6 col-sm-12 about-des">
+          <h2 style="text-align:left; color:#990000;">The challenge</h2>
+          <p>Formerly known as F1 in Schools, Stem Racing is a global STEM competition designed to inspire students to learn through the creation of miniature Formula 1 cars. Teams of students work to design, analyze, manufacture, and test their cars, all while developing skills in various areas, including physics, aerodynamics, design, manufacturing, business and marketing.</p>
+          <p>Do you want to know more about STEM RACING?</p>
+          <a href="https://www.stemracing.com/the-competition" target="_blank" class="btn btn-default">LEARN MORE</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- countdown section -->
+  <section id="countdown" style="background-color:#990000; color:white; padding:40px 0; text-align:center;">
+    <div class="container">
+      <h2 style="font-weight:bold; color:yellow;">COUNTDOWN:</h2>
+      <h2 style="font-weight:bold;">INTERMIDIATE FINAL</h2>
+      <p style="margin-bottom:30px;">April 15th 2026 - CENTIMFE</p>
+      <div id="timer" style="display:flex; justify-content:center; gap:40px; font-size:32px;">
+        <div><span id="days">00</span><div style="font-size:20px;"><em>Days</em></div></div>
+        <div><span id="hours">00</span><div style="font-size:20px;"><em>Hours</em></div></div>
+        <div><span id="minutes">00</span><div style="font-size:20px;"><em>Minutes</em></div></div>
+        <div><span id="seconds">00</span><div style="font-size:20px;"><em>Seconds</em></div></div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const targetDate = new Date("2026-04-15T08:30:00").getTime();
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = targetDate - now;
+      if (diff > 0) {
+        document.getElementById("days").innerHTML    = Math.floor(diff/(1000*60*60*24)).toString().padStart(2,'0');
+        document.getElementById("hours").innerHTML   = Math.floor((diff%(1000*60*60*24))/(1000*60*60)).toString().padStart(2,'0');
+        document.getElementById("minutes").innerHTML = Math.floor((diff%(1000*60*60))/(1000*60)).toString().padStart(2,'0');
+        document.getElementById("seconds").innerHTML = Math.floor((diff%(1000*60))/1000).toString().padStart(2,'0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+
+  <!-- ===== ATIVIDADES SECTION ===== -->
+  <section id="atividades">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 class="section-title">Social & Sustainable Projects</h2>
+        </div>
+      </div>
+      <div class="row" style="margin-top:40px;">
+
+        <!-- Card 1 -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="atividade-card">
+            <div class="atividade-icon">
+              <img src="images/blank.png" alt="Santa Speed" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <i class="fa fa-heart" style="display:none;"></i>
+            </div>
+            <h4>Volunteering at Refood</h4>
+            <p>Volunteer day</p>
+            <a href="javascript:void(0)" class="btn-atividade" onclick="abrirAtividade('santa-speed')">Saber +</a>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="atividade-card">
+            <div class="atividade-icon">
+              <img src="images/blank.png" alt="Aanifeira" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <i class="fa fa-paw" style="display:none;"></i>
+            </div>
+            <h4>Solidarity Collection for the Girassol Association</h4>
+            <p>School supplies</p>
+            <a href="javascript:void(0)" class="btn-atividade" onclick="abrirAtividade('aanifeira')">Saber +</a>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="atividade-card">
+            <div class="atividade-icon">
+              <img src="images/blank.png" alt="F1 in Schools" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <i class="fa fa-bookmark" style="display:none;"></i>
+            </div>
+            <h4>Apresentação "F1 in Schools"</h4>
+            <p>Palestra informativa</p>
+            <a href="javascript:void(0)" class="btn-atividade" onclick="abrirAtividade('f1-schools')">Saber +</a>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="atividade-card">
+            <div class="atividade-icon">
+              <img src="images/blank.png" alt="Oficina dos Speedys" onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+              <i class="fa fa-camera" style="display:none;"></i>
+            </div>
+            <h4>Oficina dos Speedys</h4>
+            <p>Atividade escolar</p>
+            <a href="javascript:void(0)" class="btn-atividade" onclick="abrirAtividade('oficina-speedys')">Saber +</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal de Atividade -->
+  <div class="modal-atividade-overlay" id="modalAtividade" onclick="fecharAtividade(event)">
+    <div class="modal-atividade-box">
+      <button class="modal-close-btn" onclick="fecharAtividadeBtn()">&times;</button>
+      <div class="modal-icon"><i id="modalIcon" class="fa fa-heart"></i></div>
+      <h3 id="modalTitulo"></h3>
+      <span class="modal-tag" id="modalTag"></span>
+      <p id="modalDescricao"></p>
+    </div>
+  </div>
+
+  <script>
+    var atividadesData = {
+      'santa-speed': {
+        icon: 'fa-heart',
+        titulo: 'Santa Speed',
+        tag: 'Atividade Escolar',
+        descricao: 'A Santa Speed é uma atividade escolar desenvolvida pela equipa Lightning Pro com o objetivo de aproximar os alunos ao mundo da Fórmula 1 e da engenharia. Através de demonstrações práticas e dinâmicas, os participantes aprendem os fundamentos da aerodinâmica, design e trabalho em equipa.'
+      },
+      'aanifeira': {
+        icon: 'fa-paw',
+        titulo: 'Associação "Aanifeira"',
+        tag: 'Parceria Sustentável',
+        descricao: 'Em parceria com a Aanifeira, a equipa Lightning Pro promove a sustentabilidade e o bem-estar animal. Esta iniciativa une o desporto motorizado com a responsabilidade ambiental e social, sensibilizando a comunidade para causas que vão além das pistas.'
+      },
+      'f1-schools': {
+        icon: 'fa-bookmark',
+        titulo: 'Apresentação "F1 in Schools"',
+        tag: 'Palestra Informativa',
+        descricao: 'A Lightning Pro realiza palestras informativas sobre o desafio F1 in Schools (Stem Racing) em escolas e eventos. O objetivo é inspirar outros jovens a participarem nesta competição global, partilhando a nossa experiência, os desafios superados e as competências adquiridas.'
+      },
+      'oficina-speedys': {
+        icon: 'fa-camera',
+        titulo: 'Oficina dos Speedys',
+        tag: 'Atividade Escolar',
+        descricao: 'A Oficina dos Speedys é uma atividade hands-on onde os participantes têm a oportunidade de conhecer de perto o processo de construção e teste dos carros miniatura. Uma experiência imersiva que combina engenharia, criatividade e trabalho de equipa.'
+      }
+    };
+
+    function abrirAtividade(id) {
+      var data = atividadesData[id];
+      if (!data) return;
+      document.getElementById('modalIcon').className = 'fa ' + data.icon;
+      document.getElementById('modalTitulo').textContent = data.titulo;
+      document.getElementById('modalTag').textContent = data.tag;
+      document.getElementById('modalDescricao').textContent = data.descricao;
+      document.getElementById('modalAtividade').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function fecharAtividadeBtn() {
+      document.getElementById('modalAtividade').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function fecharAtividade(e) {
+      if (e.target === document.getElementById('modalAtividade')) fecharAtividadeBtn();
+    }
+    document.addEventListener('keydown', function(e) { if (e.key === 'Escape') fecharAtividadeBtn(); });
+  </script>
+  <!-- ===== END ATIVIDADES ===== -->
+
+  <!-- about section -->
+  <div id="about">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 col-sm-12">
+          <img src="images/FotoGrupo.jpg" class="img-responsive" alt="about img">
+        </div>
+        <div class="col-md-6 col-sm-12 about-des">
+          <h2 style="text-align:left; color:#990000;">Lightning Pro</h2>
+          <p>We are not just a team, we are friends, we are not just competing, we are having fun, we are not just making stuff, we are learning new skills. We decided to join the challenge for its journey, the new skills we learn or perfect. We are glad we were able to reach the Portugal national finals.</p>
+          <p>Do you want to know more about our team members and a bit of our story?</p>
+          <a href="about.html" class="btn btn-default">GET TO KNOW US</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- portfolio section -->
+  <div id="portfolio">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-offset-2 col-md-8 col-sm-12">
+          <h2 style="margin-top:75px; margin-bottom:10px; color:#990000;">Our Progress</h2>
+          <p>If you are curious about some of our progress, feel free to go through <a style="color:#990000;" href="gallery.html">these photos</a></p>
+        </div>
+      </div>
+      <div>
+        <div class="img-gallery">
+          <img src="images/SmallGallery.png" alt="portfolio img">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- footer section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-item"><p><i class="fa fa-phone"></i> +351 932 740 756</p></div>
+      <div class="footer-item"><p><i class="fa fa-envelope-o"></i> lightningproteam@gmail.com</p></div>
+      <div class="footer-item"><p><i class="fa fa-instagram"></i> @lightning_pro_12</p></div>
+    </div>
+  </footer>
+
+  <!-- copyright section -->
+  <div class="copyright">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-sm-5" style="align-content:center;">
+          <p style="text-align:center;">Lightning Pro - Adriana Gabriel - Bootstrap</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://formspree.io/js/formbutton-v1.min.js" defer></script>
+  <script>
+    window.formbutton = window.formbutton || function() { (formbutton.q = formbutton.q || []).push(arguments) };
+    formbutton("create", {
+      action: "https://formspree.io/f/mrbyovlp",
+      title: "How can we help?",
+      fields: [
+        { type:"email", label:"Email:", name:"email", required:true, placeholder:"your@email.com" },
+        { type:"textarea", label:"Message:", name:"message", placeholder:"What's on your mind?" },
+        { type:"submit" }
+      ],
+      styles: { title:{ backgroundColor:"red" }, button:{ backgroundColor:"red" } }
+    });
+
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', e => {
+      cursor.classList.add('clicking');
+      spawnSparks(e.clientX, e.clientY);
+    });
+    document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+    function spawnSparks(x, y) {
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('span');
+        el.className = 'spark';
+        el.textContent = ['⚡','✦','·','∗'][Math.floor(Math.random()*4)];
+        const angle = Math.random() * Math.PI * 2;
+        const dist  = 20 + Math.random() * 60;
+        el.style.left = x + 'px';
+        el.style.top  = y + 'px';
+        el.style.color = `hsl(${30 + Math.random()*30}, 100%, 60%)`;
+        el.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+        el.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+        document.body.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+      }
+    }
+  </script>
+
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/nivo-lightbox.min.js"></script>
+  <script src="js/custom.js"></script>
+
+</body>
+</html>
