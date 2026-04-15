@@ -24,6 +24,29 @@
   <!-- google web font css -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <style>
+    * { cursor: none !important; }
+
+    #cursor {
+      position: fixed; top: 0; left: 0;
+      width: 48px; height: 48px;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-20%, -10%);
+      filter: drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 12px #ff6600);
+      will-change: transform;
+    }
+    #cursor img { width: 50%; height: 50%; object-fit: contain; image-rendering: pixelated; }
+    #cursor.clicking { transform: translate(-20%, -10%) scale(1.05); }
+
+    .spark {
+      position: fixed; pointer-events: none; z-index: 9999;
+      animation: sparkFade 0.6s ease-out forwards;
+    }
+    @keyframes sparkFade {
+      0%   { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+    }
+
+
 /* Flex container for equal height columns on desktop */
     #contact .row.equal-height {
       display: flex;
@@ -493,6 +516,7 @@ footer i {
   </style>
 </head>
 <body>
+<div id="cursor"><img src="images/CursorRaio.png" alt="" /></div>
 	<!-- navigation -->
 	<div class="container">
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -706,7 +730,42 @@ footer i {
               }
             }
           });
+
+          
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', e => {
+      cursor.classList.add('clicking');
+      spawnSparks(e.clientX, e.clientY);
+    });
+    document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+    function spawnSparks(x, y) {
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('span');
+        el.className = 'spark';
+        el.textContent = ['⚡','✦','·','∗'][Math.floor(Math.random()*4)];
+        const angle = Math.random() * Math.PI * 2;
+        const dist  = 20 + Math.random() * 60;
+        el.style.left = x + 'px';
+        el.style.top  = y + 'px';
+        el.style.color = `hsl(${30 + Math.random()*30}, 100%, 60%)`;
+        el.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+        el.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+        document.body.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+      }
+    }
         </script>
+
+	<!-- javascript js -->
+	<script src="js/jquery.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/nivo-lightbox.min.js"></script>
+	<script src="js/custom.js"></script>
 
 </body>
 </html>

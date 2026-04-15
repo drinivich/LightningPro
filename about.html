@@ -24,6 +24,29 @@
   <!-- google web font css -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
   <style>
+    * { cursor: none !important; }
+
+    #cursor {
+      position: fixed; top: 0; left: 0;
+      width: 48px; height: 48px;
+      pointer-events: none; z-index: 99999;
+      transform: translate(-20%, -10%);
+      filter: drop-shadow(0 0 6px #ffcc00) drop-shadow(0 0 12px #ff6600);
+      will-change: transform;
+    }
+    #cursor img { width: 50%; height: 50%; object-fit: contain; image-rendering: pixelated; }
+    #cursor.clicking { transform: translate(-20%, -10%) scale(1.05); }
+
+    .spark {
+      position: fixed; pointer-events: none; z-index: 9999;
+      animation: sparkFade 0.6s ease-out forwards;
+    }
+    @keyframes sparkFade {
+      0%   { opacity: 1; transform: translate(0,0) scale(1); }
+      100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(0.2); }
+    }
+
+
 /* Flex container for equal height columns on desktop */
     #contact .row.equal-height {
       display: flex;
@@ -438,6 +461,7 @@ footer i {
   </style>
 </head>
 <body>
+<div id="cursor"><img src="images/CursorRaio.png" alt="" /></div>
 	<!-- navigation -->
 	<div class="container">
 		<div class="navbar navbar-default navbar-static-top" role="navigation">
@@ -478,7 +502,7 @@ footer i {
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8 col-sm-12">
 					<h1 style="text-align: center; color: #990000;">Meet the team</h1>
-					<p style="text-align: center;">Our F1 in schools team has 6 members with different roles,
+					<p style="text-align: center;">Our Stem Racing team has 6 members with different roles,
 						responsibilities and skills, and everyone does their job.</p>
 				</div>
 			</div>
@@ -486,34 +510,31 @@ footer i {
 			<div class="row mt30">
 				<div class="col-md-4 col-sm-4 col-xs-12">
 					<div class="team-wrapper">
-						<img src="images/mariana.png" class="img-responsive" alt="team img">
-						<h3 style="text-align: left;">Mariana Rodrigues</h3>
-						<h4 style="text-align: left;">Team director</h4>
-						<p style="text-align: justify;">Our team director not only leads the team, she also coordinates
-							and ensures everyone meets
-							deadlines and goals. She also resolves team conflicts and fosters collaboration.</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-12">
-					<div class="team-wrapper">
-						<img src="images/joao.png" class="img-responsive" alt="team img">
-						<h3 style="text-align: left;">João Branco</h3>
-						<h4 style="text-align: left;">Graphic designer</h4>
-						<p style="text-align: justify;">He makes sure we have an identity. He created the logo,
-							branding, visual assets and the
-							portfolio design. Also secured sponsorships, building partnerships and managing budgets.
-						</p>
-					</div>
-				</div>
-				<div class="col-md-4 col-sm-4 col-xs-12">
-					<div class="team-wrapper">
-						<img src="images/adriana.png" class="img-responsive" alt="team img">
+						<img src="images/Gemini_Generated_Image_mo8petmo8petmo8p.png" class="img-responsive" alt="team img">
 						<h3 style="text-align: left;">Adriana Gabriel</h3>
-						<h4 style="text-align: left;">Project director</h4>
-						<p style="text-align: justify;">She designed the car and the stand, tests, and optimized the car
-							using CAD and physical
-							prototypes, ensuring everything is within the rules and regulations. She also created our
-							technical drawings and developed the website. </p>
+						<h4 style="text-align: left;">Project Engeneer</h4>
+						<p style="text-align: justify;">She designs the car and the stand. Tests and optimizes the car
+							using both CAD and physical
+							prototypes, ensuring everything is within the rules and regulations. Being also responsible for creating our
+							technical drawings and website. </p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<div class="team-wrapper">
+						<img src="images/Gemini_Generated_Image_8lmqax8lmqax8lmq.png" class="img-responsive" alt="team img">
+						<h3 style="text-align: left;">João Branco</h3>
+						<h4 style="text-align: left;">Resouces Manager</h4>
+						<p style="text-align: justify;">He secured our sponsorships, building partnerships and managing budgets. He contacts them and discusses our proposal in meetings, both online and in person. Also organizes our agenda and calendar.						</p>
+					</div>
+				</div>
+				<div class="col-md-4 col-sm-4 col-xs-12">
+					<div class="team-wrapper">
+						<img src="images/Gemini_Generated_Image_77piqo77piqo77pi.png" class="img-responsive" alt="team img">
+						<h3 style="text-align: left;">Alexandra Buyan</h3>
+						<h4 style="text-align: left;">Social Media Manager</h4>
+						<p style="text-align: justify;">She is responsible for our social media, she took photos and
+							recorded part of our process and posted them on our social media, making sure we had contact
+							with the public.</p>
 					</div>
 				</div>
 			</div>
@@ -521,33 +542,32 @@ footer i {
 			<div class="row mt30">
 				<div class="col-md-4 col-sm-4 col-xs-12">
 					<div class="team-wrapper">
-						<img src="images/matilde.png" class="img-responsive" alt="team img">
+						<img src="images/Gemini_Generated_Image_cx16gbcx16gbcx16.png" class="img-responsive" alt="team img">
 						<h3 style="text-align: left;">Matilde Gonçalves</h3>
-						<h4 style="text-align: left;">Marketing director</h4>
-						<p style="text-align: justify;">She was responsible for our social media, she took photos and
-							recorded part of our process and posted them on our social media, making sure we had contact
-							with the public.</p>
+						<h4 style="text-align: left;">Marketing </h4>
+						<p style="text-align: justify;">Helps our marketing director with our social media, making more posts than recording or taking photos. Builds public presence and interacts online.</p>
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-12">
 					<div class="team-wrapper">
-						<img src="images/casaleiro.png" class="img-responsive" alt="team img">
-						<h3 style="text-align: left;">Rafael Casaleiro</h3>
+						<img src="images/Gemini_Generated_Image_x9qpwnx9qpwnx9qp.png" class="img-responsive" alt="team img">
+						<h3 style="text-align: left;">Diogo Alves</h3>
 						<h4 style="text-align: left;">Pilot</h4>
 						<p style="text-align: justify;">Launches the car during races, has a good reaction time and
 							represents technical
-							performance in events. He is the face of our team.</p>
+							performance in events. He is the 'face' of our team.</p>
 						<p> </p>
 
 					</div>
 				</div>
 				<div class="col-md-4 col-sm-4 col-xs-12">
 					<div class="team-wrapper">
-						<img src="images/juliana.png" class="img-responsive" alt="team img">
-						<h3 style="text-align: left;">Juliana Mello</h3>
-						<h4 style="text-align: left;">Marketing</h4>
-						<p style="text-align: justify;">Helps our marketing director with our social media, making more
-							posts than recording or taking photos. Builds public presence and interacts online.</p>
+						<img src="images/Gemini_Generated_Image_3t6o3v3t6o3v3t6o.png" class="img-responsive" alt="team img">
+						<h3 style="text-align: left;">Bruna Pontes</h3>
+						<h4 style="text-align: left;">Creative Designer</h4>
+						<p style="text-align: justify;">She makes sure we have an identity. She designs our logo,
+							branding, merchandising, visual assets and the
+							portfolio design.</p>
 					</div>
 				</div>
 			</div>
@@ -847,7 +867,7 @@ footer i {
 					alt="Screenshot 2"></a>
 		</div>
 	</div>
-<!-- 
+
 		<div>
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8 col-sm-12">
@@ -861,16 +881,16 @@ footer i {
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-sm-12">
-						<img src="images/blank.jpg" class="img-responsive" alt="about img">
+						<img src="images/102.jpg" class="img-responsive" alt="about img">
 					</div>
 					<div class="col-md-6 col-sm-12 about-des">
 						<h2 style="text-align:left; color:#990000;">Lightning Pro MG</h2>
-						<p>When we got to work ater 2024 we decided to change our team name, from Lightning Pro MG to
-							just Lightning Pro.</p>
-						<p>Our team had the support of two teachers in particular: Carlos Neves, from the subject of
-							Mechanical Construction Design – Molds, and Igor, from the subject of Communication and
-							Marketing.</p>
-						<p>We had 5 team members, each with their own strengths.</p>
+						<p>Established during the 2023/24 academic year,
+							Lightning Pro MG is a dynamic team of six students specializing in advanced mechanical design and mold construction.</p>
+						<p>Our first year, gave us experience, knowledge and motivation needed to transform future engineering concepts into reality.</p>
+						<p>The team operates under the expert guidance of Teacher Carlos Neves, 
+							an instructor in the Mechanical Construction Design – Molds subject, 
+							ensuring a foundation of precision and technical excellence.</p>
 					</div>
 				</div>
 			</div>
@@ -880,30 +900,30 @@ footer i {
 
 <div class="slider">
   <div class="slide-track left">
-    <a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-    <a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-    <a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/sponsor9.png" alt="Sponsor 6"></a>
-<a target="_blank" href="" class="slide"><img src="images/blank.jpg" alt="Sponsor 6"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+	<a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
+    <a target="_blank" href="https://epamg.pt/" class="slide"><img src="images/sponsor9.png" alt="Sponsor 9"></a>
+    <a target="_blank" href="https://www.centimfe.com/en-home.html" class="slide"><img src="images/sponsor8.png" alt="Sponsor 8"></a>
+	<a target="_blank" href="https://www.facebook.com/profile.php?id=100063605636971" class="slide"><img src="images/sponsor14.png" alt="Sponsor 14"></a>
   </div>
 </div>
 	<div style="margin-top: 0%;">
@@ -912,19 +932,19 @@ footer i {
 					src="images\92.jpg"
 					alt="Screenshot 1"></a>
 			<a href="#img2"><img
-					src="images/93.jpg"
+					src="images/100.jpg"
 					alt="Screenshot 2"></a>
 			<a href="#img2"><img
 					src="images/21.jpg"
 					alt="Screenshot 2"></a>
 			<a href="#img2"><img
-					src="images/94.jpg"
+					src="images/101.jpg"
 					alt="Screenshot 2"></a>
 			<a href="#img2"><img
 					src="images/95.jpg"
 					alt="Screenshot 2"></a>
 		</div>
-	</div> -->
+	</div>
 
 		<div id="about">
 			<div class="container">
@@ -991,6 +1011,35 @@ footer i {
               }
             }
           });
+
+
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', e => {
+      cursor.classList.add('clicking');
+      spawnSparks(e.clientX, e.clientY);
+    });
+    document.addEventListener('mouseup', () => cursor.classList.remove('clicking'));
+
+    function spawnSparks(x, y) {
+      for (let i = 0; i < 10; i++) {
+        const el = document.createElement('span');
+        el.className = 'spark';
+        el.textContent = ['⚡','✦','·','∗'][Math.floor(Math.random()*4)];
+        const angle = Math.random() * Math.PI * 2;
+        const dist  = 20 + Math.random() * 60;
+        el.style.left = x + 'px';
+        el.style.top  = y + 'px';
+        el.style.color = `hsl(${30 + Math.random()*30}, 100%, 60%)`;
+        el.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+        el.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+        document.body.appendChild(el);
+        el.addEventListener('animationend', () => el.remove());
+      }
+    };
         </script>
 
 		<!-- javascript js -->
@@ -1003,6 +1052,3 @@ footer i {
 
 
 </html>
-
-
-
