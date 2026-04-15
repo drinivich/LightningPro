@@ -207,7 +207,7 @@ background-color: #1c1c1c;
 
 /* home section */
 #home {
-  background: url('../images/RenderPoster19.png') no-repeat;
+  background: url('../images/BannerSite.png') no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 500px;
@@ -267,7 +267,7 @@ background-color: #1c1c1c;
 
 /* about section */
 #about-header {
-  background: url('../images/RenderPoster19.png') no-repeat;
+  background: url('../images/BannerSite.png') no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 500px;
@@ -360,7 +360,7 @@ background-color: #1c1c1c;
 
 /* portfolio section */
 #portfolio-header {
-  background: url('../images/RenderPoster19.png') no-repeat;
+  background: url('../images/BannerSite.png') no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 500px;
@@ -401,7 +401,7 @@ background-color: #1c1c1c;
 
 /* CONTACTOS */
 #contact-header {
-  background: url('../images/RenderPoster19.png') no-repeat;
+  background: url('../images/BannerSite.png') no-repeat;
   background-size: cover;
   background-position: center;
   min-height: 500px;
